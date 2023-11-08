@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake extends Mechanism {
@@ -12,11 +13,12 @@ public class Intake extends Mechanism {
 
     @Override
     public void init(HardwareMap hwMap) {
-        intake = hwMap.dcMotor.get("intake");
-        bottomRoller =hwMap.crservo.get("BottoMroller");
+        intake = hwMap.dcMotor.get("intakeMotor");
+        bottomRoller =hwMap.crservo.get("intakeServo");
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void intake(){
@@ -26,5 +28,9 @@ public class Intake extends Mechanism {
     public void outtake() {
         intake.setPower(-1);
         bottomRoller.setPower(-1);
+    }
+    public void stop(){
+        intake.setPower(0);
+        bottomRoller.setPower(0);
     }
 }
