@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
 @TeleOp
-public class IntakeTesting extends LinearOpMode {
+public class SlidesTesting extends LinearOpMode {
 
     private Robot robject = new Robot(false);
     @Override
@@ -17,13 +16,15 @@ public class IntakeTesting extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()){
             robject.drive.drive(gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
-            if (gamepad1.left_bumper){
-                robject.intake.intake();
-            } else if (gamepad1.right_bumper){
-                robject.intake.outtake();
+            if (gamepad1.a){
+                robject.slides.slideUp();
+            } else if (gamepad1.b){
+                robject.slides.slideDown();
             } else {
-                robject.intake.stop();
+                robject.slides.hold();
             }
+            telemetry.addLine(String.valueOf(robject.slides.pos()));
+            telemetry.update();
         }
     }
 }
