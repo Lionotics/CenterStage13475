@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 public class Slides extends Mechanism{
     DcMotor slide;
-    public static double SLIDES_UP = 200;
+    public static double SLIDES_UP = 10000;
 
     public static double hold = 0;
     @Override
@@ -21,12 +21,12 @@ public class Slides extends Mechanism{
     }
     public void slideUp(){
         if (slide.getCurrentPosition() < SLIDES_UP) {
-            slide.setPower(1);
+            slide.setPower(.5);
         }
     }
     public void slideDown(){
         if (slide.getCurrentPosition() > 0) {
-            slide.setPower(-1);
+            slide.setPower(-.5);
         }
     }
     public void hold(){
