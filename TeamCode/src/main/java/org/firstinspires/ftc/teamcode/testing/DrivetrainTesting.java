@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.hardware.Drivetrain;
-@TeleOp
+@TeleOp(group = "Tests")
 public class DrivetrainTesting extends LinearOpMode {
 
     Drivetrain drive = new Drivetrain();

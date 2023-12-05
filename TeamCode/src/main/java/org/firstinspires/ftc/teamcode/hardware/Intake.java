@@ -19,6 +19,7 @@ public class Intake extends Mechanism {
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        //TODO: Is this really inverted?
     }
 
     public void intake(){

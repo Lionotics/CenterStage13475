@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.vision.PropVision;
 import org.firstinspires.ftc.vision.VisionPortal;
 
-@TeleOp(name = "Red Prop Vision Test")
+@TeleOp(group = "Tests")
 public class PropVisionTesting extends LinearOpMode {
 
     private VisionPortal visionPortal;

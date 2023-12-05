@@ -27,8 +27,6 @@ public class Drivetrain extends Mechanism{
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
     }
 
     public void drive(double leftStickY, double leftStickX,
@@ -51,6 +49,7 @@ public class Drivetrain extends Mechanism{
         frontRight.setPower(frontRightPower * maxPower);
         backRight.setPower(backRightPower * maxPower);
     }
-
-
+    public void setMaxSpeed(double speed){
+        maxPower = speed;
+    }
 }
