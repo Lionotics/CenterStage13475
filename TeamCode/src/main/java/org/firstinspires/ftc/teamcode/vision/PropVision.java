@@ -8,6 +8,7 @@ import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
@@ -40,11 +41,12 @@ public class PropVision implements VisionProcessor {
         CENTER,
         RIGHT
     }
+
+
     private PropLocation location;
     // set our color
-    boolean isRed = true;
+    boolean isRed;
 
-    static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
     Telemetry telemetry;
@@ -67,30 +69,30 @@ public class PropVision implements VisionProcessor {
     @Override
     public Object processFrame(Mat frame, long captureTimeNanos) {
 
-        Scalar lowHSV = new Scalar(0,0,0);
-        Scalar highHSV = new Scalar(255,255,255);
+        Scalar lowHSV;
+        Scalar highHSV;
 
-        // TODO: Tuning for both red and blue
+        // Tuning for both red and blue
         // add an if statement based on isRed
         if(isRed) {
             lowHSV = new Scalar(160, 50, 50); // lower bound HSV for red
             highHSV = new Scalar(180, 255, 255); // higher bound HSV for red
         } else {
             // Insert blue values here
-            lowHSV = new Scalar(110, 50, 50); // lower bound HSV for red
-            highHSV = new Scalar(120, 255, 255); // higher bound HSV for red
+            lowHSV = new Scalar(110, 50, 50); // lower bound HSV for blue
+            highHSV = new Scalar(120, 255, 255); // higher bound HSV for blue
 
         }
         Mat mat = new Mat();
         // Convert to HSv
         Imgproc.cvtColor(frame, mat, Imgproc.COLOR_RGB2HSV);
 
-        // TODO: Tuning
+
         Mat thresh = new Mat();
         Core.inRange(mat,lowHSV,highHSV,thresh);
-        Mat left = thresh.submat(0,height,0,LEFTLINE);
-        Mat center = thresh.submat(0,height,LEFTLINE,RIGHTLINE);
-        Mat right = thresh.submat(0,height,RIGHTLINE,width);
+        Mat left = thresh.submat(height/2,height,0,LEFTLINE);
+        Mat center = thresh.submat(height/2,height,LEFTLINE,RIGHTLINE);
+        Mat right = thresh.submat(height/2,height,RIGHTLINE,width);
         // draw lines to make it clear where the divide is
         Imgproc.line(frame,new Point(LEFTLINE,0), new Point(LEFTLINE,height),GREEN,5);
         Imgproc.line(frame,new Point(RIGHTLINE,0), new Point(RIGHTLINE,height),GREEN,5);
@@ -117,15 +119,19 @@ public class PropVision implements VisionProcessor {
 
         // our camera output gets put back into the frame - showing which pixels are being used
         frame.copyTo(frame);
-        // be responsible with memory
+        // be responsible with memory - clear out things we don't need from processing the frame
         mat.release();
         thresh.release();
         left.release();
         right.release();
         center.release();
 
+
         return null;
 
+    }
+    public PropLocation getLocation(){
+        return location;
     }
 
     @Override
