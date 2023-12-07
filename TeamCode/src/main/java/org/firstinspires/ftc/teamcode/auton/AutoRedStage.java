@@ -46,69 +46,70 @@ public class AutoRedStage extends LinearOpMode {
 
         // setup other hardware
         robot.init(hardwareMap);
-        /*robot.endEffector.pivotUp();
-        robot.endEffector.toggleTop();
-        robot.endEffector.toggleBottom();*/
+        robot.endEffector.closeBottom();
+        robot.endEffector.closeTop();
+        robot.endEffector.pivotFull();
 
-/*        TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
+        TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
                 .forward(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_SPIKEMARK)
                 .addTemporalMarker(()->{
-                    robot.arm.release2();
-                })
-                .addTemporalMarker(()->{
-                    robot.arm.up();
-                    robot.slides.setTarget(Slides.SLIDES_AUTO);
+                    robot.endEffector.openBottom();
                 })
                 .lineToSplineHeading(AutoConstants.RED_LEFT_STAGE)
                 .addTemporalMarker(()->{
-                    robot.arm.release1();
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    robot.arm.down();
-                    robot.arm.fullRelease();
-                    robot.slides.setTarget(0);
+                    robot.endEffector.openTop();
                 })
                 .waitSeconds(1)
 
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
+                //TODO: Move more forward; close claws
                 .forward(20)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_SPIKEMARK)
                 .addTemporalMarker(()->{
-                    robot.arm.release2();
+                    robot.endEffector.openBottom();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.arm.up();
-                    robot.slides.setTarget(Slides.SLIDES_AUTO);
+                    robot.endEffector.pivotDown();
                 })
                 .lineToSplineHeading(AutoConstants.RED_CENTER_STAGE)
                 .addTemporalMarker(()->{
-                    robot.arm.release1();
+                    robot.endEffector.openTop();
                 })
-                .waitSeconds(1)
+                .waitSeconds(4)
+                .back(3)
                 .addTemporalMarker(()->{
-                    robot.arm.down();
-                    robot.arm.fullRelease();
-                    robot.slides.setTarget(0);
+                    robot.endEffector.closeTop();
+                    robot.endEffector.closeBottom();
+                    robot.endEffector.pivotUp();
                 })
-                .build();*/
+                .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
                 .forward(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_SPIKEMARK)
-                /*.addTemporalMarker(()->{
-                    robot.endEffector.toggleBottom();
-                })*/
+                .addTemporalMarker(()->{
+                    robot.endEffector.openBottom();
+                })
                 .waitSeconds(1)
-                .strafeRight(6)
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotDown();
+                })
+                .strafeRight(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_STAGE)
-                /*.addTemporalMarker(()->{
-                    robot.endEffector.toggleTop();
-                })*/
+                .addTemporalMarker(()->{
+                    robot.endEffector.openTop();
+                })
+                .waitSeconds(4)
+                .back(3)
+                .addTemporalMarker(()->{
+                    robot.endEffector.closeTop();
+                    robot.endEffector.closeBottom();
+                    robot.endEffector.pivotUp();
+                })
                 .build();
 
         // init loop. Runs durring init before start is pressed
@@ -130,9 +131,9 @@ public class AutoRedStage extends LinearOpMode {
 
 
         if(location == PropVision.PropLocation.LEFT){
-            //drive.followTrajectorySequenceAsync(placeLeft);
+            drive.followTrajectorySequenceAsync(placeLeft);
         } else if (location == PropVision.PropLocation.CENTER){
-            //drive.followTrajectorySequenceAsync(placeCenter);
+            drive.followTrajectorySequenceAsync(placeCenter);
         } else {
             drive.followTrajectorySequenceAsync(placeRight);
         }

@@ -16,7 +16,7 @@ public class EndEffectorTesting extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()){
             gp1.update(gamepad1);
-
+            robot.drive.drive(gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
             if (gp1.x.isNewlyPressed()){
                 robot.endEffector.pivotUp();
             } else if (gp1.y.isNewlyPressed()){
