@@ -48,24 +48,35 @@ public class AutoRedStage extends LinearOpMode {
         robot.init(hardwareMap);
         robot.endEffector.closeBottom();
         robot.endEffector.closeTop();
-        robot.endEffector.pivotFull();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotFull();
+                })
                 .forward(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_SPIKEMARK)
                 .addTemporalMarker(()->{
                     robot.endEffector.openBottom();
                 })
+                .waitSeconds(1)
                 .lineToSplineHeading(AutoConstants.RED_LEFT_STAGE)
                 .addTemporalMarker(()->{
                     robot.endEffector.openTop();
                 })
-                .waitSeconds(1)
-
+                .waitSeconds(3)
+                .back(3)
+                .addTemporalMarker(()->{
+                    robot.endEffector.closeTop();
+                    robot.endEffector.closeBottom();
+                    robot.endEffector.pivotUp();
+                })
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
                 //TODO: Move more forward; close claws
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotFull();
+                })
                 .forward(20)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_SPIKEMARK)
                 .addTemporalMarker(()->{
@@ -89,6 +100,9 @@ public class AutoRedStage extends LinearOpMode {
                 .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotFull();
+                })
                 .forward(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_SPIKEMARK)
                 .addTemporalMarker(()->{

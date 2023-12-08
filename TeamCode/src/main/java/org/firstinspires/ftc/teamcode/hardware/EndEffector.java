@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class EndEffector extends Mechanism {
     ServoImplEx leftPivot, rightPivot, top, bottom;
     public static double TOP_CLOSE = 0.5;
-    public static double TOP_OPEN = 0.65;
+    public static double TOP_OPEN = 0.68;
     public static double BOTTOM_CLOSE = 0.5;
     public static double BOTTOM_OPEN = 0;
     public static double PIVOT_DOWN = 0.93;

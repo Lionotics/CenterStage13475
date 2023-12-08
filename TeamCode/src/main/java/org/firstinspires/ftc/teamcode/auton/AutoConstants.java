@@ -8,15 +8,15 @@ public class AutoConstants {
     public static final Pose2d RED_RIGHT_START = new Pose2d(11.5, -62, Math.toRadians(90.00));
     public static final Pose2d BLUE_LEFT_START = mirror(RED_RIGHT_START);
 
-    public static final Pose2d RED_RIGHT_LEFT_SPIKEMARK = new Pose2d(8,-40,Math.toRadians(135));
-    public static final Pose2d RED_RIGHT_CENTER_SPIKEMARK = new Pose2d(11.5,-36,Math.toRadians(90));
+    public static final Pose2d RED_RIGHT_LEFT_SPIKEMARK = new Pose2d(9.5,-40,Math.toRadians(135));
+    public static final Pose2d RED_RIGHT_CENTER_SPIKEMARK = new Pose2d(11.5,-34,Math.toRadians(90));
     public static final Pose2d RED_RIGHT_RIGHT_SPIKEMARK = new Pose2d(13,-40,Math.toRadians(45));
 
     public static final Pose2d BLUE_LEFT_RIGHT_SPIKEMARK = mirror(RED_RIGHT_LEFT_SPIKEMARK);
     public static final Pose2d BLUE_LEFT_CENTER_SPIKEMARK = mirror(RED_RIGHT_CENTER_SPIKEMARK);
     public static final Pose2d BLUE_LEFT_LEFT_SPIKEMARK = mirror(RED_RIGHT_RIGHT_SPIKEMARK);
 
-    public static final Pose2d RED_LEFT_STAGE = new Pose2d(52,-26,0);
+    public static final Pose2d RED_LEFT_STAGE = new Pose2d(52,-30,0);
     public static final Pose2d RED_CENTER_STAGE = new Pose2d(52,-34,0);
     public static final Pose2d RED_RIGHT_STAGE = new Pose2d(52,-42,0);
 
