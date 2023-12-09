@@ -59,6 +59,9 @@ public class AutoRedStage extends LinearOpMode {
                     robot.endEffector.openBottom();
                 })
                 .waitSeconds(1)
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotDown();
+                })
                 .lineToSplineHeading(AutoConstants.RED_LEFT_STAGE)
                 .addTemporalMarker(()->{
                     robot.endEffector.openTop();

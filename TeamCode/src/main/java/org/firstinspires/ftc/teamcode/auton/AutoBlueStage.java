@@ -59,6 +59,9 @@ public class AutoBlueStage extends LinearOpMode {
                     robot.endEffector.openBottom();
                 })
                 .waitSeconds(1)
+                .addTemporalMarker(()->{
+                    robot.endEffector.pivotDown();
+                })
                 .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
                 .addTemporalMarker(()->{
                     robot.endEffector.openTop();
@@ -73,7 +76,6 @@ public class AutoBlueStage extends LinearOpMode {
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
-                //TODO: Move more forward; close claws
                 .addTemporalMarker(()->{
                     robot.endEffector.pivotFull();
                 })
