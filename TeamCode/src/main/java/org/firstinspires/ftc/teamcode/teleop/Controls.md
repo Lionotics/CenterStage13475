@@ -1,11 +1,13 @@
 # Gamepad 1:
-* Dpad
-    - Up: Slides Up
-    - Down: Slides Down
-    - Left:
-    - Right:
 * Left Stick: Drive
 * Right Stick: Turn
+
+# Gamepad 1 and 2:
+* Dpad
+  - Up:
+  - Down:
+  - Left:
+  - Right: Shoot drone
 * A: Toggle Top EndEffector
 * B: Toggle Bottom EndEffector
 * X: Pivot up

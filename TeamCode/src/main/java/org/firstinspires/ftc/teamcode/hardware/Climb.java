@@ -26,7 +26,6 @@ public class Climb extends Mechanism {
     public void init(HardwareMap hwMap) {
         climb = hwMap.dcMotor.get("climb");
         hook = (ServoImplEx)  hwMap.servo.get("hook");
-
         climb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         climb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         climb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
