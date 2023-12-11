@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
 public class EndEffector extends Mechanism {
-    ServoImplEx leftPivot, rightPivot, top, bottom;
+    ServoImplEx leftPivot, top, bottom;
     public static double TOP_CLOSE = 0.5;
     public static double TOP_OPEN = 0.68;
     public static double BOTTOM_CLOSE = 0.5;
@@ -23,26 +23,19 @@ public class EndEffector extends Mechanism {
     @Override
     public void init(HardwareMap hwMap) {
         leftPivot = (ServoImplEx) hwMap.servo.get("leftPivot");
-        rightPivot = (ServoImplEx) hwMap.servo.get("rightPivot");
         top = (ServoImplEx) hwMap.servo.get("top");
         bottom = (ServoImplEx) hwMap.servo.get("bottom");
 
-        rightPivot.setDirection(Servo.Direction.REVERSE);
-
         leftPivot.setPwmRange(new PwmControl.PwmRange(500, 2500));
-        rightPivot.setPwmRange(new PwmControl.PwmRange(500, 2500));
     }
     public void pivotUp() {
         leftPivot.setPosition(PIVOT_UP);
-        rightPivot.setPosition(PIVOT_UP);
     }
     public void pivotDown() {
         leftPivot.setPosition(PIVOT_DOWN);
-        rightPivot.setPosition(PIVOT_DOWN);
     }
     public void pivotFull() {
         leftPivot.setPosition(FULL_DOWN);
-        rightPivot.setPosition(FULL_DOWN);
     }
     public void toggleTop() {
         if (topOpen) {

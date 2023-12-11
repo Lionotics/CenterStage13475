@@ -34,20 +34,26 @@ public class Teleop extends LinearOpMode {
             robot.drive.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             // intake controls
-            if (gp1.leftBumper.isNewlyPressed() || gp2.leftBumper.isNewlyPressed()) {
+            if (gp1.leftBumper.isCurrentlyPressed() || gp2.a.isCurrentlyPressed()) {
                 robot.intake.intake();
-            } else if (gp1.rightBumper.isNewlyPressed() || gp2.rightBumper.isNewlyPressed()) {
+            } else if (gp1.rightBumper.isCurrentlyPressed() || gp2.rightBumper.isCurrentlyPressed()) {
                 robot.intake.outtake();
             } else {
                 robot.intake.stop();
             }
 
-            if (gp1.left.isNewlyPressed() || gp2.left.isNewlyPressed()) {
-                if(robot.climb.getClimbState() == Climb.ClimbState.STOWED) {
-                    robot.climb.startRaise();
-                } else if (robot.climb.getClimbState() == Climb.ClimbState.RAISED) {
-                    robot.climb.startClimb();
-                }
+            // climb controls
+            if (gamepad1.dpad_up || gamepad2.dpad_up) {
+                robot.climb.manualUp();
+            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
+                robot.climb.manualDown();
+            } else {
+                robot.climb.stop();
+            }
+            if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
+                robot.climb.hookUp();
+            } else if (gamepad1.right_trigger > 0.5 || gamepad2.right_trigger > 0.5) {
+                robot.climb.hookDown();
             }
 
             if (gp1.x.isNewlyPressed() || gp2.x.isNewlyPressed()) {
@@ -63,8 +69,6 @@ public class Teleop extends LinearOpMode {
             if (gamepad1.dpad_right || gamepad2.dpad_right) {
                 robot.airplane.shootAirplane();
             }
-
-            robot.climb.updateClimb();
 
             // Telemetry
             telemetry.addData("Climb pos", robot.climb.getPosition());

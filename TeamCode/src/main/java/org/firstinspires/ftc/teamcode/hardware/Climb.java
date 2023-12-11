@@ -71,17 +71,13 @@ public class Climb extends Mechanism {
     }
     public int getPosition(){return climb.getCurrentPosition();}
     public void climbUp(){
-        if (climb.getCurrentPosition() < CLIMB_UP) {
-            climb.setPower(1);
-        }
+        climb.setPower(1);
     }
     public boolean enabled(){
         return hook.isPwmEnabled();
     }
     public void climbDown() {
-        if (climb.getCurrentPosition() > 5) {
-            climb.setPower(-1);
-        }
+        climb.setPower(-1);
     }
     public void manualUp() {
         climb.setPower(1);
