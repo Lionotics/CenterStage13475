@@ -8,16 +8,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 public class Slides extends Mechanism{
     DcMotor slide;
-    public static double SLIDES_UP = 10000;
+    public static double SLIDES_UP = 2000;
     public static double SLIDES_HOLD = 0;
-    public static double MAX_SPEED = 0.7;
-    public static double MAX_AUTO_SPEED = 0.7;
-    public static int SLIDES_AUTO = 150;
-    public static int TRANSITION_POINT = 150;
+    public static double MAX_SPEED = 1;
+    public static double MAX_AUTO_SPEED = 1;
     private PIDController controller;
     public static int target = 0;
     public static double Kg = SLIDES_HOLD;
-    public static double Kp = 0.005;
+    public static double Kp = 0;
     public static double Ki = 0;
     public static double Kd = 0;
     public static int exitThreshold = 10;
@@ -32,11 +30,12 @@ public class Slides extends Mechanism{
     private LIFT_STATE liftState = LIFT_STATE.HOLDING;
     @Override
     public void init(HardwareMap hwMap) {
-        slide = hwMap.dcMotor.get("beltSlide");
+        slide = hwMap.dcMotor.get("slides");
 
         slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide.setDirection(DcMotor.Direction.REVERSE);
 
         controller = new PIDController(Kp,Ki,Kd);
         controller.setPID(Kp,Ki,Kd);
@@ -89,7 +88,6 @@ public class Slides extends Mechanism{
         } else {
             slide.setPower(0);
             slide.setPower(0);
-
         }
     }
     public void hold(){

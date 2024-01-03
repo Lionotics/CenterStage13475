@@ -66,6 +66,8 @@ public class Teleop extends LinearOpMode {
                 robot.endEffector.toggleBottom();
             }
 
+
+
             if (gamepad1.dpad_right || gamepad2.dpad_right) {
                 robot.airplane.shootAirplane();
             }
