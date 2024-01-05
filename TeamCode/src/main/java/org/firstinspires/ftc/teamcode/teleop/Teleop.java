@@ -21,7 +21,7 @@ public class Teleop extends LinearOpMode {
         robot.drive.setMaxSpeed(0.8);
 
         waitForStart();
-        robot.intake.stop();
+        //robot.intake.stop();
 
         while (opModeIsActive()) {
             time.reset();
@@ -34,27 +34,27 @@ public class Teleop extends LinearOpMode {
             robot.drive.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             // intake controls
-            if (gp1.leftBumper.isCurrentlyPressed() || gp2.a.isCurrentlyPressed()) {
-                robot.intake.intake();
-            } else if (gp1.rightBumper.isCurrentlyPressed() || gp2.rightBumper.isCurrentlyPressed()) {
-                robot.intake.outtake();
-            } else {
-                robot.intake.stop();
-            }
-
-            // climb controls
-            if (gamepad1.dpad_up || gamepad2.dpad_up) {
-                robot.climb.manualUp();
-            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
-                robot.climb.manualDown();
-            } else {
-                robot.climb.stop();
-            }
-            if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
-                robot.climb.hookUp();
-            } else if (gamepad1.right_trigger > 0.5 || gamepad2.right_trigger > 0.5) {
-                robot.climb.hookDown();
-            }
+//            if (gp1.leftBumper.isCurrentlyPressed() || gp2.a.isCurrentlyPressed()) {
+//                robot.intake.intake();
+//            } else if (gp1.rightBumper.isCurrentlyPressed() || gp2.rightBumper.isCurrentlyPressed()) {
+//                robot.intake.outtake();
+//            } else {
+//                robot.intake.stop();
+//            }
+//
+//            // climb controls
+//            if (gamepad1.dpad_up || gamepad2.dpad_up) {
+//                robot.climb.manualUp();
+//            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
+//                robot.climb.manualDown();
+//            } else {
+//                robot.climb.stop();
+//            }
+//            if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
+//                robot.climb.hookUp();
+//            } else if (gamepad1.right_trigger > 0.5 || gamepad2.right_trigger > 0.5) {
+//                robot.climb.hookDown();
+//            }
 
             if (gp1.x.isNewlyPressed() || gp2.x.isNewlyPressed()) {
                 robot.endEffector.pivotUp();
@@ -66,15 +66,22 @@ public class Teleop extends LinearOpMode {
                 robot.endEffector.toggleBottom();
             }
 
-
-
-            if (gamepad1.dpad_right || gamepad2.dpad_right) {
-                robot.airplane.shootAirplane();
+            if (gamepad1.dpad_up){
+                robot.slides.manualUp();
+            } else if (gamepad1.dpad_down){
+                robot.slides.manualDown();
+            } else {
+                robot.slides.hold();
             }
+            robot.slides.loop();
+//
+//            if (gamepad1.dpad_right || gamepad2.dpad_right) {
+//                robot.airplane.shootAirplane();
+//            }
 
             // Telemetry
-            telemetry.addData("Climb pos", robot.climb.getPosition());
-            telemetry.addData("Climb State ", robot.climb.getClimbState());
+            //telemetry.addData("Climb pos", robot.climb.getPosition());
+            //telemetry.addData("Climb State ", robot.climb.getClimbState());
             telemetry.update();
         }
     }
