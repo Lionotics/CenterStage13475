@@ -11,6 +11,7 @@ public class Robot {
     public Slides slides = new Slides();
     public Drivetrain drive = new Drivetrain();
     public EndEffector endEffector = new EndEffector();
+    public  Placer placer = new Placer();
     //TODO: Add end effector
     public boolean isAuto = false;
 
@@ -18,15 +19,14 @@ public class Robot {
         this.isAuto = isAuto;
     }
 
-    public void init(HardwareMap hwMap){
-        //TODO: Uncomment as hardware is setup and ready
-//        airplane.init(hwMap);
-        climb.init(hwMap);
-        endEffector.init(hwMap);
-        slides.init(hwMap);
+    public void init(HardwareMap hwMap, InitOptions options){
+        if (options.airplaneEnabled) {airplane.init(hwMap);}
+        if (options.climbEnabled) {climb.init(hwMap);}
+        if (options.endEffectorEnabled) {endEffector.init(hwMap);}
+        if (options.slidesEnabled) {slides.init(hwMap);}
+        if (options.placerEnabled) {placer.init(hwMap);}
+
         // If we are in auto, assume roadrunner is handling the drivetrain
-        if(!isAuto) {
-            drive.init(hwMap);
-        }
+        if (!isAuto && options.drivingEnabled) {drive.init(hwMap);}
     }
 }

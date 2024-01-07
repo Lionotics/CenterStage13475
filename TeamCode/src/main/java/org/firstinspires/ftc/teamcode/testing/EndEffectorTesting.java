@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.hardware.InitOptions;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.helpers.GamepadEx;
 
@@ -12,7 +13,10 @@ public class EndEffectorTesting extends LinearOpMode {
     GamepadEx gp1 = new GamepadEx();
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap);
+        InitOptions options = new InitOptions(false);
+        options.endEffectorEnabled = true;
+        options.drivingEnabled = true;
+        robot.init(hardwareMap, options);
         waitForStart();
         while(opModeIsActive()){
             gp1.update(gamepad1);

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardware.InitOptions;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.vision.PropVision;
@@ -45,7 +46,7 @@ public class AutoBlueStage extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         // setup other hardware
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, new InitOptions(true));
         robot.endEffector.closeBottom();
         robot.endEffector.closeTop();
 
