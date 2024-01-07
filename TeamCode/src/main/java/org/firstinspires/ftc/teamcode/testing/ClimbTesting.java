@@ -30,6 +30,8 @@ public class ClimbTesting extends LinearOpMode {
                 robot.climb.hookDown();
             }
 
+            robot.drive.drive(gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
+
             telemetry.addData("Climb Pos", robot.climb.getPosition());
             telemetry.update();
         }

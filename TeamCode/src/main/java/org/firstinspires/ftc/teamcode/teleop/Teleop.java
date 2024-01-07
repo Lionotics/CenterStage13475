@@ -33,15 +33,6 @@ public class Teleop extends LinearOpMode {
             // Actually drive the robot
             robot.drive.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
-            // intake controls
-//            if (gp1.leftBumper.isCurrentlyPressed() || gp2.a.isCurrentlyPressed()) {
-//                robot.intake.intake();
-//            } else if (gp1.rightBumper.isCurrentlyPressed() || gp2.rightBumper.isCurrentlyPressed()) {
-//                robot.intake.outtake();
-//            } else {
-//                robot.intake.stop();
-//            }
-//
 //            // climb controls
 //            if (gamepad1.dpad_up || gamepad2.dpad_up) {
 //                robot.climb.manualUp();

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 @Config
@@ -28,7 +29,9 @@ public class Climb extends Mechanism {
         hook = (ServoImplEx)  hwMap.servo.get("hook");
         climb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         climb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        climb.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        climb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        hook.setPwmRange(new PwmControl.PwmRange(500, 2500));
     }
     public void startRaise(){
         climbState = ClimbState.RAISING;
