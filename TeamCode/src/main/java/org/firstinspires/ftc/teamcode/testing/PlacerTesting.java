@@ -19,12 +19,12 @@ public class PlacerTesting extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()){
             robot.drive.drive(gamepad1.left_stick_y,gamepad1.left_stick_x,gamepad1.right_stick_x);
-        }
-        if(gamepad1.dpad_left){
-            robot.placer.place();
-        }
-        if(gamepad1.dpad_right){
-            robot.placer.reset();
+            if(gamepad1.dpad_left){
+                robot.placer.place();
+            }
+            if(gamepad1.dpad_right){
+                robot.placer.reset();
+            }
         }
     }
 }

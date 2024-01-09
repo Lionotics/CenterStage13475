@@ -10,7 +10,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardware.InitOptions;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
-import org.firstinspires.ftc.teamcode.hardware.Slides;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.vision.PropVision;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -47,7 +46,7 @@ public class AutoRedStage extends LinearOpMode {
 
         // setup other hardware
         robot.init(hardwareMap, new InitOptions(true));
-        robot.endEffector.closeBottom();
+        robot.endEffector.pivotUp();
         robot.endEffector.closeTop();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
@@ -108,7 +107,7 @@ public class AutoRedStage extends LinearOpMode {
                     robot.endEffector.pivotFull();
                 })
                 .forward(15)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_SPIKEMARK)
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PUSH)
                 .addTemporalMarker(()->{
                     robot.endEffector.openBottom();
                 })

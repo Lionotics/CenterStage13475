@@ -15,7 +15,7 @@ public class Slides extends Mechanism{
     private PIDController controller;
     public static int target = 0;
     public static double Kg = SLIDES_HOLD;
-    public static double Kp = 0;
+    public static double Kp = .005;
     public static double Ki = 0;
     public static double Kd = 0;
     public static int exitThreshold = 10;
@@ -49,6 +49,8 @@ public class Slides extends Mechanism{
     }
 
     public void pidLoop(){
+        controller = new PIDController(Kp,Ki,Kd);
+        controller.setPID(Kp,Ki,Kd);
         double pos = this.getPosition();
         double power = controller.calculate(pos,target);
         if(this.getPosition() > 10) {

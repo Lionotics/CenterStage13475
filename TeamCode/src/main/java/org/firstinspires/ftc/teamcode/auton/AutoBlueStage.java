@@ -18,7 +18,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 public class AutoBlueStage extends LinearOpMode {
     // Init vision
     private VisionPortal visionPortal;
-    private PropVision propVision = new PropVision(this.telemetry,true);
+    private PropVision propVision = new PropVision(this.telemetry,false);
 
     private Robot robot = new Robot(true);
 
@@ -47,35 +47,33 @@ public class AutoBlueStage extends LinearOpMode {
 
         // setup other hardware
         robot.init(hardwareMap, new InitOptions(true));
-        robot.endEffector.closeBottom();
+        robot.endEffector.pivotUp();
         robot.endEffector.closeTop();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(5)
+                .turn(Math.toRadians(15))
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PLACE)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(15)
-                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_SPIKEMARK)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
+                    robot.placer.place();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
+                    robot.placer.reset();
                 })
-                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(3)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
+//                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.openTop();
+//                })
+//                .waitSeconds(3)
+//                .back(3)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.closeTop();
+//                    robot.endEffector.closeBottom();
+//                    robot.endEffector.pivotUp();
+//                })
                 .build();
-
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
                 .addTemporalMarker(()->{
                     robot.endEffector.pivotFull();
