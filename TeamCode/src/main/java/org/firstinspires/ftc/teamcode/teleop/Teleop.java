@@ -24,7 +24,7 @@ public class Teleop extends LinearOpMode {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
         robot.init(hardwareMap, new InitOptions(true));
-        robot.drive.setMaxSpeed(0.8);
+        robot.drive.setMaxSpeed(0.9);
 
         waitForStart();
         //robot.intake.stop();
