@@ -51,8 +51,8 @@ public class AutoRedStage extends LinearOpMode {
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(28)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
@@ -74,8 +74,8 @@ public class AutoRedStage extends LinearOpMode {
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
@@ -97,8 +97,8 @@ public class AutoRedStage extends LinearOpMode {
                 .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })

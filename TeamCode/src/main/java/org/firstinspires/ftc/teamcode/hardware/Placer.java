@@ -16,10 +16,10 @@ public class Placer extends Mechanism{
     }
 
     public void reset() {
-        placer.setPosition(up);
+        placer.setPosition(down);
     }
     public void place() {
-        placer.setPosition(down);
+        placer.setPosition(up);
     }
     public double pos() { return placer.getPosition();}
 }

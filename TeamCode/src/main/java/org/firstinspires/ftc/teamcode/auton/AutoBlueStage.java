@@ -48,11 +48,39 @@ public class AutoBlueStage extends LinearOpMode {
         // setup other hardware
         robot.init(hardwareMap, new InitOptions(true));
         robot.endEffector.closeTop();
-        robot.endEffector.pivotUp();
+        robot.endEffector.openBottom();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(20)
                 .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PUSH)
                 .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PLACE)
+                .addTemporalMarker(()->{
+                    robot.placer.place();
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(()->{
+                    robot.placer.reset();
+                })
+                .addTemporalMarker(()->{
+                    robot.slides.setTarget(650);
+                })
+                .forward(15)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+                .addTemporalMarker(()->{
+                    robot.endEffector.openTop();
+                })
+                .waitSeconds(3)
+                .back(3)
+                .addTemporalMarker(()->{
+                    robot.endEffector.closeTop();
+                    robot.endEffector.closeBottom();
+                    robot.endEffector.pivotUp();
+                })
+                .build();
+
+        TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
@@ -72,57 +100,29 @@ public class AutoBlueStage extends LinearOpMode {
 //                    robot.endEffector.pivotUp();
 //                })
                 .build();
-        TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(20)
-                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_SPIKEMARK)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
-                })
-                .lineToSplineHeading(AutoConstants.BLUE_CENTER_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(4)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
-                .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(28)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PLACE)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(15)
-                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_SPIKEMARK)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
+                    robot.placer.place();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
+                    robot.placer.reset();
                 })
-                .strafeLeft(15)
-                .lineToSplineHeading(AutoConstants.BLUE_RIGHT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(4)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
+//                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.openTop();
+//                })
+//                .waitSeconds(3)
+//                .back(3)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.closeTop();
+//                    robot.endEffector.closeBottom();
+//                    robot.endEffector.pivotUp();
+//                })
                 .build();
 
         // init loop. Runs during init before start is pressed
@@ -142,6 +142,7 @@ public class AutoBlueStage extends LinearOpMode {
         if (isStopRequested()) return;
         // Start has been pressed
 
+        robot.endEffector.pivotUp();
 
         if(location == PropVision.PropLocation.LEFT){
             drive.followTrajectorySequenceAsync(placeLeft);
@@ -162,6 +163,8 @@ public class AutoBlueStage extends LinearOpMode {
                     break;
             }
             drive.update();
+            robot.slides.pidLoop();
+
             // Update any other things that need updating every loop here too (e.g slides)
         }
     }

@@ -55,7 +55,7 @@ public class Slides extends Mechanism{
         double power = controller.calculate(pos,target);
         if(this.getPosition() > 10) {
             slide.setPower((power * MAX_AUTO_SPEED) + Kg);
-        } else{
+        } else {
             slide.setPower((power * MAX_AUTO_SPEED));
         }
 
