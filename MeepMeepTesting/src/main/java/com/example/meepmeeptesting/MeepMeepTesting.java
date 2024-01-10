@@ -27,12 +27,11 @@ public class MeepMeepTesting {
 //                );
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(AutoConstants.RED_RIGHT_START)
-                                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_SPIKEMARK)
-                                .waitSeconds(1)
-                                .lineToSplineHeading(AutoConstants.RED_CENTER_STAGE)
-                                .waitSeconds(3)
-                                .back(3)
-                                .build()
+                        .strafeRight(28)
+                        .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PUSH)
+                        .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PLACE)
+                        .waitSeconds(1)
+                        .build()
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)

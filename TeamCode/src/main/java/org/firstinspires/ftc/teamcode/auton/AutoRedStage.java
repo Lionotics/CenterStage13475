@@ -46,90 +46,80 @@ public class AutoRedStage extends LinearOpMode {
 
         // setup other hardware
         robot.init(hardwareMap, new InitOptions(true));
-        robot.endEffector.pivotUp();
         robot.endEffector.closeTop();
+        robot.endEffector.pivotUp();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
+                .strafeRight(28)
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PUSH)
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PLACE)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(15)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_SPIKEMARK)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
+                    robot.placer.place();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
+                    robot.placer.reset();
                 })
-                .lineToSplineHeading(AutoConstants.RED_LEFT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(3)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
+//                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.openTop();
+//                })
+//                .waitSeconds(3)
+//                .back(3)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.closeTop();
+//                    robot.endEffector.closeBottom();
+//                    robot.endEffector.pivotUp();
+//                })
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
-                //TODO: Move more forward; close claws
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PUSH)
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PLACE)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(20)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_SPIKEMARK)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
+                    robot.placer.place();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
+                    robot.placer.reset();
                 })
-                .lineToSplineHeading(AutoConstants.RED_CENTER_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(4)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
+//                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.openTop();
+//                })
+//                .waitSeconds(3)
+//                .back(3)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.closeTop();
+//                    robot.endEffector.closeBottom();
+//                    robot.endEffector.pivotUp();
+//                })
                 .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotFull();
-                })
-                .forward(15)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PUSH)
+                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PLACE)
                 .addTemporalMarker(()->{
-                    robot.endEffector.openBottom();
+                    robot.placer.place();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
+                    robot.placer.reset();
                 })
-                .strafeRight(15)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.openTop();
-                })
-                .waitSeconds(4)
-                .back(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
-                })
+//                .lineToSplineHeading(AutoConstants.BLUE_LEFT_STAGE)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.openTop();
+//                })
+//                .waitSeconds(3)
+//                .back(3)
+//                .addTemporalMarker(()->{
+//                    robot.endEffector.closeTop();
+//                    robot.endEffector.closeBottom();
+//                    robot.endEffector.pivotUp();
+//                })
                 .build();
 
-        // init loop. Runs durring init before start is pressed
+        // init loop. Runs during init before start is pressed
         while(!isStarted() && !isStopRequested()){
             location = propVision.getLocation();
             telemetry.addData("Prop Location", location);

@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.hardware;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
 public class EndEffector extends Mechanism {
@@ -15,8 +14,8 @@ public class EndEffector extends Mechanism {
     public static double BOTTOM_CLOSE = 0.6;
     public static double BOTTOM_OPEN = 0.3;
     public static double FULL_DOWN = 1;
-    public static double PIVOT_UP = 0;
-    public static double PIVOT_DOWN = 0.5;
+    public static double PIVOT_UP = 0.59;
+    public static double PIVOT_DOWN = 0.77;
 
     boolean topOpen = true;
     boolean bottomOpen = true;

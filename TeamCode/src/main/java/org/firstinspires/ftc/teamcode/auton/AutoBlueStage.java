@@ -47,12 +47,10 @@ public class AutoBlueStage extends LinearOpMode {
 
         // setup other hardware
         robot.init(hardwareMap, new InitOptions(true));
-        robot.endEffector.pivotUp();
         robot.endEffector.closeTop();
+        robot.endEffector.pivotUp();
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
-                .strafeRight(5)
-                .turn(Math.toRadians(15))
                 .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PUSH)
                 .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PLACE)
                 .addTemporalMarker(()->{

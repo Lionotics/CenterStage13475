@@ -5,13 +5,17 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 @Config
 public class AutoConstants {
 
-    public static final Pose2d RED_RIGHT_START = new Pose2d(12, -64, Math.toRadians(15));
+    public static final Pose2d RED_RIGHT_START = new Pose2d(12, -64, Math.toRadians(180));
     public static final Pose2d BLUE_LEFT_START = mirror(RED_RIGHT_START);
 
     public static final Pose2d RED_RIGHT_LEFT_SPIKEMARK = new Pose2d(9.5,-40,Math.toRadians(135));
     public static final Pose2d RED_RIGHT_CENTER_SPIKEMARK = new Pose2d(11.5,-34,Math.toRadians(90));
-    public static final Pose2d RED_RIGHT_RIGHT_PUSH = new Pose2d(23,-40,Math.toRadians(45));
-    public static final Pose2d RED_RIGHT_RIGHT_PLACE = new Pose2d(23,-44,Math.toRadians(45));
+    public static final Pose2d RED_RIGHT_LEFT_PUSH = new Pose2d(3,-35,Math.toRadians(180));
+    public static final Pose2d RED_RIGHT_LEFT_PLACE = new Pose2d(4.5,-37,Math.toRadians(180));
+    public static final Pose2d RED_RIGHT_CENTER_PUSH = new Pose2d(14,-32,Math.toRadians(180));
+    public static final Pose2d RED_RIGHT_CENTER_PLACE = new Pose2d(14,-34,Math.toRadians(180));
+    public static final Pose2d RED_RIGHT_RIGHT_PUSH = new Pose2d(18,-44,Math.toRadians(135));
+    public static final Pose2d RED_RIGHT_RIGHT_PLACE = new Pose2d(18,-46,Math.toRadians(135));
 
 
     public static final Pose2d BLUE_LEFT_RIGHT_SPIKEMARK = mirror(RED_RIGHT_LEFT_SPIKEMARK);
