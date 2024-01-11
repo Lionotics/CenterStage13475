@@ -13,7 +13,7 @@ public class EndEffector extends Mechanism {
     public static double TOP_OPEN = 0.5;
     public static double BOTTOM_CLOSE = 0.6;
     public static double BOTTOM_OPEN = 0.3;
-    public static double FULL_DOWN = 1;
+    public static double PIVOT_AUTO = .38;
     public static double PIVOT_UP = 0.59;
     public static double PIVOT_DOWN = 0.77;
 
@@ -40,8 +40,9 @@ public class EndEffector extends Mechanism {
         leftPivot.setPosition(PIVOT_DOWN);
         rightPivot.setPosition(PIVOT_DOWN);
     }
-    public void pivotFull() {
-        leftPivot.setPosition(FULL_DOWN);
+    public void pivotAuto() {
+        leftPivot.setPosition(PIVOT_AUTO);
+        rightPivot.setPosition(PIVOT_AUTO);
     }
     public void toggleTop() {
         if (topOpen) {

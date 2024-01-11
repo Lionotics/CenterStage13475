@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.util.Encoder;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Drivetrain extends Mechanism{
-    DcMotor frontRight, frontLeft, backRight, backLeft;
-    private double maxPower = 0.5;
+
+    private double maxSpeed = 0.8;
+    private DcMotor frontRight, frontLeft, backRight, backLeft;
+    private IMU imu;
     @Override
     public void init(HardwareMap hwMap) {
         frontRight = hwMap.dcMotor.get("frontRight");
@@ -30,26 +34,48 @@ public class Drivetrain extends Mechanism{
     }
 
     public void drive(double leftStickY, double leftStickX,
-    double rightStickX){
-        double y = leftStickY; // Remember, Y stick value is reversed
-        double x = -leftStickX * 1.1; // Counteract imperfect strafing
-        double rx = -rightStickX;
+                      double rightStickX){
+        double y = -leftStickY; // Remember, Y stick value is reversed
+        double x = leftStickX;
+        double rx = rightStickX;
+
+        // Read inverse IMU heading, as the IMU heading is CW positive
+        double botHeading =  -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
         // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y - x + rx) / denominator;
-        double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
 
-        frontLeft.setPower(frontLeftPower * maxPower);
-        backLeft.setPower(backLeftPower * maxPower);
-        frontRight.setPower(frontRightPower * maxPower);
-        backRight.setPower(backRightPower * maxPower);
+        frontLeft.setPower(frontLeftPower * maxSpeed);
+        backLeft.setPower(backLeftPower * maxSpeed);
+        frontRight.setPower(frontRightPower * maxSpeed);
+        backRight.setPower(backRightPower * maxSpeed);
     }
+
     public void setMaxSpeed(double speed){
-        maxPower = speed;
+        maxSpeed = speed;
     }
+    public double getMaxSpeed(){
+        return maxSpeed;
+    }
+    public void initIMU(HardwareMap hwMap){
+        // Retrieve the IMU from the hardware map
+        imu = hwMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+        imu.initialize(parameters);
+        imu.resetYaw();
+    }
+    public void resetHeading(){
+        imu.resetYaw();
+    }
+
 }
