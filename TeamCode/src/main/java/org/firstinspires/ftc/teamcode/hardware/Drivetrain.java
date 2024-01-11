@@ -31,6 +31,7 @@ public class Drivetrain extends Mechanism{
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        initIMU(hwMap);
     }
 
     public void drive(double leftStickY, double leftStickX,
