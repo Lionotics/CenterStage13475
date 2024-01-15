@@ -32,7 +32,7 @@ public class AutoConstants {
         public static final Pose2d BLUE_CENTER_STAGE = negateY(RED_CENTER_STAGE);
         public static final Pose2d BLUE_LEFT_STAGE = negateY(RED_RIGHT_STAGE);
 
-        public static final Pose2d RED_RIGHT_PARK = new Pose2d(52, -60, Math.toRadians(270));
+        public static final Pose2d RED_RIGHT_PARK = new Pose2d(43, -62, Math.toRadians(270));
         public static final Pose2d BLUE_LEFT_PARK = negateY(RED_RIGHT_PARK);
 
         public static Pose2d mirror(Pose2d pose){

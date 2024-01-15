@@ -34,8 +34,8 @@ public class AutoConstants {
     public static final Pose2d BLUE_CENTER_STAGE = new Pose2d(49,34,0);
     public static final Pose2d BLUE_LEFT_STAGE = new Pose2d(49,42,0);
 
-    public static final Pose2d RED_RIGHT_PARK = new Pose2d(52, -60, Math.toRadians(270));
-    public static final Pose2d BLUE_LEFT_PARK = new Pose2d(52, 60, Math.toRadians(270));
+    public static final Pose2d RED_RIGHT_PARK = new Pose2d(43, -62, Math.toRadians(270));
+    public static final Pose2d BLUE_LEFT_PARK = new Pose2d(43, 62, Math.toRadians(270));
 
     public static Pose2d mirror(Pose2d pose){
         return new Pose2d(pose.getX(),-pose.getY(),pose.getHeading() + Math.toRadians(180));

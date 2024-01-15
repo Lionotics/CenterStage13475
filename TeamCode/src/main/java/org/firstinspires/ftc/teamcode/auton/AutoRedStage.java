@@ -73,10 +73,11 @@ public class AutoRedStage extends LinearOpMode {
                 .addTemporalMarker(()->{
                     robot.endEffector.closeTop();
                     robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
+                    robot.endEffector.pivotAuto();
                     robot.slides.setTarget(0);
                 })
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
+                .strafeLeft(20)
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
@@ -101,10 +102,11 @@ public class AutoRedStage extends LinearOpMode {
                 .addTemporalMarker(()->{
                     robot.endEffector.closeTop();
                     robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
+                    robot.endEffector.pivotAuto();
                     robot.slides.setTarget(0);
                 })
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
+                .strafeLeft(20)
                 .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
@@ -121,6 +123,7 @@ public class AutoRedStage extends LinearOpMode {
                 .addTemporalMarker(()->{
                     robot.slides.setTarget(650);
                 })
+                .back(10)
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_STAGE)
                 .addTemporalMarker(()->{
                     robot.endEffector.pivotDown();
@@ -130,10 +133,11 @@ public class AutoRedStage extends LinearOpMode {
                 .addTemporalMarker(()->{
                     robot.endEffector.closeTop();
                     robot.endEffector.closeBottom();
-                    robot.endEffector.pivotUp();
+                    robot.endEffector.pivotAuto();
                     robot.slides.setTarget(0);
                 })
                 .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
+                .strafeLeft(20)
                 .build();
 
         // init loop. Runs during init before start is pressed
