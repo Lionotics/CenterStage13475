@@ -95,6 +95,9 @@ public class Slides extends Mechanism{
     public void hold(){
         liftState = LIFT_STATE.HOLDING;
     }
+    public void stop(){
+        slide.setPower(0);
+    }
     public void loop(){
         switch (liftState){
             case AUTO_MOVE:

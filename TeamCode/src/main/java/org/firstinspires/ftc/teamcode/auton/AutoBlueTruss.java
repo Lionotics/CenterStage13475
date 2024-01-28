@@ -13,13 +13,14 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.vision.PropVision;
 import org.firstinspires.ftc.vision.VisionPortal;
+
 @Autonomous
-public class AutoRedStage extends LinearOpMode {
+public class AutoBlueTruss extends LinearOpMode {
     // Init vision
     private VisionPortal visionPortal;
-    private final PropVision propVision = new PropVision(this.telemetry,true);
+    private PropVision propVision = new PropVision(this.telemetry,false);
 
-    private final Robot robot = new Robot(true);
+    private Robot robot = new Robot(true);
 
     private enum State{
         SPIKEMARK,
@@ -31,7 +32,7 @@ public class AutoRedStage extends LinearOpMode {
     private State currentState = State.SPIKEMARK;
 
     // Define a starting position
-    Pose2d startPose = AutoConstants.RED_RIGHT_START;
+    Pose2d startPose = AutoConstants.BLUE_LEFT_START;
     // Vision
     PropVision.PropLocation location;
     @Override
@@ -52,8 +53,8 @@ public class AutoRedStage extends LinearOpMode {
 
         TrajectorySequence placeLeft = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(20)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_LEFT_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_LEFT_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
@@ -61,86 +62,37 @@ public class AutoRedStage extends LinearOpMode {
                 .addTemporalMarker(()->{
                     robot.placer.reset();
                 })
-                .addTemporalMarker(()->{
-                    robot.slides.setTarget(650);
-                })
-                .lineToSplineHeading(AutoConstants.RED_LEFT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
-                    robot.endEffector.openTop();
-                    robot.endEffector.openBottom();
-                })
-                .waitSeconds(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotAuto();
-                    robot.slides.setTarget(0);
-                })
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
-                .strafeLeft(20)
+                .lineToSplineHeading(startPose)
+                .turn(Math.toRadians(270))
                 .build();
 
         TrajectorySequence placeCenter = drive.trajectorySequenceBuilder(startPose)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_CENTER_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_CENTER_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
-                .waitSeconds(1)
+                .waitSeconds(3)
                 .addTemporalMarker(()->{
                     robot.placer.reset();
                 })
-                .addTemporalMarker(()->{
-                    robot.slides.setTarget(650);
-                })
-                .lineToSplineHeading(AutoConstants.RED_CENTER_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
-                    robot.endEffector.openTop();
-                    robot.endEffector.openBottom();
-                })
-                .waitSeconds(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotAuto();
-                    robot.slides.setTarget(0);
-                })
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
-                .strafeLeft(20)
+                .lineToSplineHeading(startPose)
+                .turn(Math.toRadians(270))
                 .build();
 
         TrajectorySequence placeRight = drive.trajectorySequenceBuilder(startPose)
                 .strafeRight(28)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PUSH)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_RIGHT_PLACE)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PUSH)
+                .lineToSplineHeading(AutoConstants.BLUE_LEFT_RIGHT_PLACE)
                 .addTemporalMarker(()->{
                     robot.placer.place();
                 })
-                .waitSeconds(1)
+                .waitSeconds(3)
                 .addTemporalMarker(()->{
                     robot.placer.reset();
                 })
-                .addTemporalMarker(()->{
-                    robot.slides.setTarget(650);
-                })
-                .back(10)
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_STAGE)
-                .addTemporalMarker(()->{
-                    robot.endEffector.pivotDown();
-                    robot.endEffector.openTop();
-                    robot.endEffector.openBottom();
-                })
-                .waitSeconds(3)
-                .addTemporalMarker(()->{
-                    robot.endEffector.closeTop();
-                    robot.endEffector.closeBottom();
-                    robot.endEffector.pivotAuto();
-                    robot.slides.setTarget(0);
-                })
-                .lineToSplineHeading(AutoConstants.RED_RIGHT_PARK)
-                .strafeLeft(20)
+                .lineToSplineHeading(startPose)
+                .turn(Math.toRadians(270))
                 .build();
 
         // init loop. Runs during init before start is pressed
@@ -174,7 +126,7 @@ public class AutoRedStage extends LinearOpMode {
             switch (currentState){
                 case SPIKEMARK:
                     if(!drive.isBusy()){
-                        currentState = AutoRedStage.State.IDLE;
+                        currentState = State.IDLE;
 //                        robot.arm.release2();
                     }
                 case IDLE:
@@ -185,7 +137,6 @@ public class AutoRedStage extends LinearOpMode {
 
             // Update any other things that need updating every loop here too (e.g slides)
         }
-
     }
 
     private void initPropVision(){

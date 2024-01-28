@@ -26,9 +26,9 @@ public class AutoConstants {
     public static final Pose2d BLUE_LEFT_LEFT_PLACE = new Pose2d(12, 36, Math.toRadians(45));
 
 
-    public static final Pose2d RED_LEFT_STAGE = new Pose2d(47,-30,0);
-    public static final Pose2d RED_CENTER_STAGE = new Pose2d(47,-34,0);
-    public static final Pose2d RED_RIGHT_STAGE = new Pose2d(47,-42,0);
+    public static final Pose2d RED_LEFT_STAGE = new Pose2d(48.5,-30,0);
+    public static final Pose2d RED_CENTER_STAGE = new Pose2d(48.5,-34,0);
+    public static final Pose2d RED_RIGHT_STAGE = new Pose2d(48.5,-42,0);
 
     public static final Pose2d BLUE_RIGHT_STAGE = new Pose2d(49,30,0);
     public static final Pose2d BLUE_CENTER_STAGE = new Pose2d(49,34,0);

@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 @Config
 public class EndEffector extends Mechanism {
     ServoImplEx rightPivot, leftPivot, top, bottom;
-    public static double TOP_CLOSE = 0.8;
+    public static double TOP_CLOSE = 0.9;
     public static double TOP_OPEN = 0.5;
-    public static double BOTTOM_CLOSE = 0.62;
-    public static double BOTTOM_OPEN = 0.55;
+    public static double BOTTOM_CLOSE = 0.5;
+    public static double BOTTOM_OPEN = 0.7;
     public static double PIVOT_AUTO = 0.38;
     public static double PIVOT_UP = 0.59;
     public static double PIVOT_DOWN = 0.76;
