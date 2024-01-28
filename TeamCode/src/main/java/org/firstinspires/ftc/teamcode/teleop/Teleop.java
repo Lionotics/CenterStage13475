@@ -37,21 +37,19 @@ public class Teleop extends LinearOpMode {
             gp2.update(gamepad2);
 
             // Actually drive the robot
-            robot.drive.drive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            robot.drive.drive(gp1.left_stick_y, gp1.left_stick_x, gp1.right_stick_x);
 
-//            // climb controls
-//            if (gamepad1.dpad_up || gamepad2.dpad_up) {
-//                robot.climb.manualUp();
-//            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
-//                robot.climb.manualDown();
-//            } else {
-//                robot.climb.stop();
-//            }
-//            if (gamepad1.left_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
-//                robot.climb.hookUp();
-//            } else if (gamepad1.right_trigger > 0.5 || gamepad2.right_trigger > 0.5) {
-//                robot.climb.hookDown();
-//            }
+           // climb controls
+            if (gp1.leftBumper.isNewlyPressed() || gp2.leftBumper.isNewlyPressed()) {
+               robot.climb.hookUp(); 
+            } else if (gp1.rightBumper.isNewlyPressed() || gp2.rightBumper.isNewlyPressed()) {
+                robot.climb.hookDown(); 
+            }
+            if (gp1.left_trigger > 0.5 || gp2.left_trigger > 0.5) {
+                robot.climb.climbUp();
+            } else if (gp1.right_trigger > 0.5 || gp2.right_trigger > 0.5) {
+               robot.climb.climbDown();
+            }
 
             if (gp1.x.isNewlyPressed() || gp2.x.isNewlyPressed()) {
                 robot.endEffector.pivotUp();
@@ -63,18 +61,18 @@ public class Teleop extends LinearOpMode {
                 robot.endEffector.toggleBottom();
             }
 
-            if (gamepad1.dpad_up){
-                robot.slides.manualUp();
-            } else if (gamepad1.dpad_down){
-                robot.slides.manualDown();
+            if (gp1.dpad_up || gp2.dpad_up){
+                robot.slides.slideUp();
+            } else if (gp1.dpad_down || gp2.dpad_down){
+                robot.slides.slideDown();
             } else {
                 robot.slides.hold();
             }
             robot.slides.loop();
-//
-//            if (gamepad1.dpad_right || gamepad2.dpad_right) {
-//                robot.airplane.shootAirplane();
-//            }
+
+           if (gp1.dpad_right || gp2.dpad_right) {
+               robot.airplane.shootAirplane();
+           }
 
             // Telemetry
             //telemetry.addData("Climb pos", robot.climb.getPosition());
